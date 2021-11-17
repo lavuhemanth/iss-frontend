@@ -14,12 +14,16 @@ export default class MapRender extends Component {
         this.fetchIssPositionData();
         this.ws.onopen = (event) => {
             console.log('Web Socket connection estiblished!');
-            this.ws.send('Send request to start fetch location')
         }
 
         this.ws.onmessage = (event) => {
+            console.log('New msg : ', event.message);
             this.fetchIssPositionData();
         }
+
+        setInterval(() => {
+            this.ws.send('Message from frontend')
+        }, 10000)
     }
 
     updateISSData = data => this.setState(state => ({ issData: data}))
